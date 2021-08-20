@@ -84,6 +84,9 @@ app.delete("/products/:id", (req,res) => {
         }
     }).then((result) => {
         console.log(`${id} 삭제 성공 `)
+        res.send({
+            result,
+        })
     }).catch((error)=> {
         console.error(error);
         res.status(400).send("상품 삭제에 문제가 발생했습니다.");
