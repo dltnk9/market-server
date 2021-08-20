@@ -71,8 +71,24 @@ app.post("/products", (req,res) => {
         res.status(400).send("상품 업로드에 문제가 발생했습니다.");
     })
  
+    
 
 });
+
+app.delete("/products/:id", (req,res) => {
+    const params = req.params;
+    const {id} = params;
+    models.Product.destroy({
+        where :{
+            "id": id
+        }
+    }).then((result) => {
+        console.log(`${id} 삭제 성공 `)
+    }).catch((error)=> {
+        console.error(error);
+        res.status(400).send("상품 삭제에 문제가 발생했습니다.");
+    })
+})
 
 app.get("/products/:id", (req,res) =>{
     const params = req.params;
@@ -100,6 +116,7 @@ app.post('/image',upload.single('image'),(req,res) => {
         imageUrl: file.path,
     })
 })
+
 
 app.listen(port, () => {
     console.log("그랩의 쇼핑몰 서버가 돌아가고 있습니다");
